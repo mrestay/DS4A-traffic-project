@@ -1,0 +1,7 @@
+md5: 4196e8270a98abc6833e8cef8defe795
+outs:
+- md5: 2ad6a1592da7179e2d4f60554db110b8
+  path: siniestros_bogota_2020.csv
+  cache: true
+  metric: false
+  persist: false
