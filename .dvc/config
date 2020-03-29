@@ -1,0 +1,6 @@
+[core]
+    remote = myremote
+['remote "myremote"']
+    url = s3://ds4a-traffic-accident-project-core/datasets
+	profile = ds4a-project
+	region = us-east-1
