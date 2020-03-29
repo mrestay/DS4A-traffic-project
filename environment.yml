@@ -85,7 +85,6 @@ dependencies:
   - pyqt=5.9.2=py38h05f1152_4
   - pyrsistent=0.15.7=py38h7b6447c_0
   - python=3.8.2=hcf32534_0
-  - python-dateutil=2.8.1=py_0
   - pytz=2019.3=py_0
   - pyzmq=18.1.1=py38he6710b0_0
   - qt=5.9.7=h5867ecd_1
@@ -116,25 +115,61 @@ dependencies:
   - zipp=2.2.0=py_0
   - zlib=1.2.11=h7b6447c_3
   - pip:
+    - appdirs==1.4.3
+    - atpublic==1.0
     - boto3==1.12.31
     - botocore==1.15.31
     - branca==0.4.0
     - chardet==3.0.4
     - click-plugins==1.1.1
     - cligj==0.5.0
+    - colorama==0.4.3
+    - configobj==5.0.6
+    - distro==1.4.0
     - docutils==0.15.2
+    - dpath==2.0.1
+    - dvc==0.91.1
     - fiona==1.8.13.post1
+    - flatten-json==0.1.7
+    - flufl-lock==3.2
     - folium==0.10.1
+    - funcy==1.14
+    - future==0.18.2
     - geopandas==0.7.0
+    - gitdb==4.0.2
+    - gitpython==3.1.0
+    - grandalf==0.6
+    - humanize==2.2.0
     - idna==2.9
+    - inflect==3.0.2
     - jmespath==0.9.5
+    - jsonpath-ng==1.5.1
     - munch==2.5.0
+    - nanotime==0.5.2
+    - networkx==2.3
+    - packaging==20.3
+    - pathspec==0.7.0
+    - ply==3.11
     - psycopg2-binary==2.8.4
+    - pyasn1==0.4.8
+    - pydot==1.4.1
+    - pygtrie==2.3.2
     - pyproj==2.6.0
+    - python-dateutil==2.8.0
+    - pyyaml==5.1.2
     - requests==2.23.0
+    - ruamel-yaml==0.16.10
+    - ruamel-yaml-clib==0.2.0
     - s3transfer==0.3.3
     - shapely==1.7.0
+    - shortuuid==1.0.1
+    - smmap==3.0.1
     - sqlalchemy==1.3.15
+    - texttable==1.6.2
+    - tqdm==4.44.0
+    - treelib==1.6.1
     - urllib3==1.25.8
+    - voluptuous==0.11.7
+    - zc-lockfile==2.0
 prefix: /home/matt/anaconda3/envs/ds4a-project
 
