@@ -2,4 +2,4 @@ data/siniestros_bogota_historico.csv
 data/siniestros_bogota_2020.csv
 data/localidades.csv
 data/poligonos-localidades.geojson
-eda/.ipynb_checkpoints/
+eda/.ipynb_checkpoints/*
