@@ -1,0 +1,7 @@
+md5: 6af3d5ce29673c2be7c3df9b7572151c
+outs:
+- md5: 1e0b151b78ae6755ddfe05869c9e82e7
+  path: localidades.csv
+  cache: true
+  metric: false
+  persist: false
