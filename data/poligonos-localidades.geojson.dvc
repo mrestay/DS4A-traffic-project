@@ -1,7 +1,0 @@
-md5: 3ce4d8a8c7a943d2ad6c1d3e5691e486
-outs:
-- md5: ecb692a8a87b478e7c5c894fe624e21a
-  path: poligonos-localidades.geojson
-  cache: true
-  metric: false
-  persist: false

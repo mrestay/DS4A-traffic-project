@@ -1,7 +1,0 @@
-md5: 0b13f6c04758a11a89ac727cf9139b14
-outs:
-- md5: a3d1bb14e0db96d76d05249683d46e48
-  path: siniestros_bogota_historico.csv
-  cache: true
-  metric: false
-  persist: false

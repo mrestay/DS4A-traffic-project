@@ -1,6 +1,6 @@
 [core]
-    remote = myremote
-['remote "myremote"']
+    remote = s3
+['remote "s3"']
     url = s3://ds4a-traffic-accident-project-core/datasets
 	profile = ds4a-project
 	region = us-east-1
