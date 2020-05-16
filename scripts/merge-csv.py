@@ -20,4 +20,4 @@ for file in os.listdir(directory):
 
 
 print(out)
-out.to_csv('./out'+year+'.csv')
+out.to_csv('./out-'+year+'.csv')
