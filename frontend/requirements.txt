@@ -31,7 +31,7 @@ bcrypt==3.1.7
 Beaker==1.11.0
 beautifulsoup4==4.9.0
 -e git+https://github.com/frappe/bench@b3262ee50327b7d00d566bb05a8827371f88d946#egg=bench
-bleach==3.1.3
+bleach==3.1.4
 blinker==1.4
 blosc==1.9.0
 boto3==1.12.21
