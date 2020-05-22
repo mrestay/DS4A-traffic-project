@@ -1,10 +1,10 @@
 import pandas as pd
 
-accidents_2015=pd.read_csv('../../data/dataset_2015_with_negatives.csv',sep=',')
-accidents_2016=pd.read_csv('../../data/dataset_2016_with_negatives.csv',sep=',')
-accidents_2017=pd.read_csv('../../data/dataset_2017_with_negatives.csv',sep=',')
-accidents_2018=pd.read_csv('../../data/dataset_2018_with_negatives.csv',sep=',')
-accidents_2019=pd.read_csv('../../data/dataset_2019_with_negatives.csv',sep=',')
+accidents_2015=pd.read_csv('../data/dataset_2015_with_negatives.csv',sep=',')
+accidents_2016=pd.read_csv('../data/dataset_2016_with_negatives.csv',sep=',')
+accidents_2017=pd.read_csv('../data/dataset_2017_with_negatives.csv',sep=',')
+accidents_2018=pd.read_csv('../data/dataset_2018_with_negatives.csv',sep=',')
+accidents_2019=pd.read_csv('../data/dataset_2019_with_negatives.csv',sep=',')
 
 accidents_All=pd.concat([accidents_2015, accidents_2016,accidents_2017,
                         accidents_2018,accidents_2019], ignore_index=True)
