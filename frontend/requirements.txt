@@ -127,7 +127,7 @@ honcho==1.0.1
 html5lib==1.0.1
 htmlmin==0.1.12
 httpie==2.1.0
-httplib2==0.17.3
+httplib2==0.18.0
 hyperlink==19.0.0
 idna==2.8
 imagesize==1.2.0
