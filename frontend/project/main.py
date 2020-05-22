@@ -36,6 +36,49 @@ st.subheader('Accidents')
 
 st.sidebar.radio('Segmentation', ('Total', 'By Year'))
 
+
+# burbujas
+from .widgets import bubble, tiles
+from .accidents import temperature, precipitation, agg
+
+
+temp = temperature[year[1]] 
+temp_list = [round(temp[x]) for x in agg]
+
+preci = precipitation[year[1]] 
+preci_list = [round(preci[x]) for x in agg]
+
+# st.write(temp_list)
+
+st.write(f"""
+<div style="display: flex;">
+    {bubble([
+    'Average</br>temp',
+    'Min</br>temp',
+    'Median</br>temp',
+    'Max</br>temp',
+    ],
+   temp_list,
+    ['#0C4990','#1770C2','#F1516E', '#69C1FF'])}
+    {bubble([
+    'Average</br>preci',
+    'Min</br>preci',
+    'Median</br>preci',
+    'Max</br>preci',
+    ],
+    preci_list,
+    ['#0C4990','#1770C2','#F1516E', '#69C1FF'])}
+</div>""", unsafe_allow_html=True)
+
+
+title = 'Total accidents'
+titleValue = '31322'
+subTitles=['Accidents with</br>Fatality', 'Accidents with</br>Injury', 'Accidents with </br> Material damage']
+subValues=[24532, 35342, 35342]
+
+st.write(tiles(title, titleValue, subTitles, subValues),  unsafe_allow_html=True)
+
+
 # st.write(year)
 # st.write(by_hour)
 
@@ -113,44 +156,3 @@ st.pydeck_chart(pdk.Deck(
     )
     ],
 ))
-  
-# burbujas
-from .widgets import bubble, tiles
-from .accidents import temperature, precipitation, agg
-
-
-temp = temperature[year[1]] 
-temp_list = [round(temp[x]) for x in agg]
-
-preci = precipitation[year[1]] 
-preci_list = [round(preci[x]) for x in agg]
-
-# st.write(temp_list)
-
-st.write(f"""
-<div style="display: flex;">
-    {bubble([
-    'Average</br>temp',
-    'Min</br>temp',
-    'Median</br>temp',
-    'Max</br>temp',
-    ],
-   temp_list,
-    ['#0C4990','#1770C2','#F1516E', '#69C1FF'])}
-    {bubble([
-    'Average</br>preci',
-    'Min</br>preci',
-    'Median</br>preci',
-    'Max</br>preci',
-    ],
-    preci_list,
-    ['#0C4990','#1770C2','#F1516E', '#69C1FF'])}
-</div>""", unsafe_allow_html=True)
-
-
-title = 'Total accidents'
-titleValue = '31322'
-subTitles=['Accidents with</br>Fatality', 'Accidents with</br>Injury', 'Accidents with </br> Material damage']
-subValues=[24532, 35342, 35342]
-
-st.write(tiles(title, titleValue, subTitles, subValues),  unsafe_allow_html=True)
