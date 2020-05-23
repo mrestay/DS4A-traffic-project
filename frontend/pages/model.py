@@ -27,9 +27,14 @@ def write():
     date = st.date_input('Choose a date:', now, now + datetime.timedelta(days=30))
     st.write('You selected:', date)
 
+
+
+  # st.write(geocode_result)
+
     time = st.selectbox('Choose an hour:', list(range(25)))
     hour = datetime.time(time).strftime("%H:00:00")
     st.write('You selected:', hour)
+
 
     datetime_input = str(date) + ' ' + hour
     st.write(datetime_input)
@@ -46,16 +51,16 @@ def write():
          'pitch': 100,
      },
      layers=[{
-         'type': 'HexagonLayer',
-         # 'data': df,
-         'radius': 200,
+         'type': 'ScatterplotLayer',
+          'data': df,
+         'radius': 50,
          'elevationScale': 4,
          'elevationRange': [0, 1000],
          'pickable': True,
          'extruded': True,
      }, {
          'type': 'ScatterplotLayer',
-         # 'data': df,
+          'data': df,
      }])
 
   # st.date_input
