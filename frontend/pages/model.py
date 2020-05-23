@@ -1,6 +1,7 @@
 import streamlit as st
 from widgets import video_youtube
 import googlemaps
+import pandas as pd
 
 gmaps = googlemaps.Client(key='AIzaSyAiMEuA9twXdcMskBgO8CzGul1yfUDhz8k')
 
@@ -9,6 +10,9 @@ def write():
 
   address = st.text_input('Your address', 'terminal')
   geocode_result = gmaps.places(address,(4.6347139,-74.1070325),20000)
+
+  df = pd.DataFrame([4.65, -74.11]).T
+  df.columns =['lat', 'lon']
 
   # st.write(geocode_result)
 
@@ -25,16 +29,16 @@ def write():
          'pitch': 50,
      },
      layers=[{
-         'type': 'HexagonLayer',
-         # 'data': df,
-         'radius': 200,
+         'type': 'ScatterplotLayer',
+          'data': df,
+         'radius': 50,
          'elevationScale': 4,
          'elevationRange': [0, 1000],
          'pickable': True,
          'extruded': True,
      }, {
          'type': 'ScatterplotLayer',
-         # 'data': df,
+          'data': df,
      }])
 
   # st.date_input
