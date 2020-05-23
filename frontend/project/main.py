@@ -3,8 +3,10 @@ from .pages import general
 from .pages import climate
 from .pages import cluster
 from .pages import accidents
+from .pages import about
 
 PAGES = {
+    "About": about,
     "General": general,
     "Cluster": cluster,
     "Climate": climate,
@@ -29,9 +31,9 @@ def main():
     st.sidebar.info(
         """
         This app is made by:
-        - Bibiana
-        - Juan
-        - Mateo
-        - Sebastian
+        - Bibiana Molina
+        - Juan Agilar
+        - Mateo Restrepo
+        - Sebastian Tabares
 """
     )

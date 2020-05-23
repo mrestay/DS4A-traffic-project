@@ -8,6 +8,8 @@ from ..data import accidents, temperature, precipitation, agg
 from ..widgets import bubble, tiles
 
 def write():
+
+    #--- sidebar ---
     year = st.sidebar.slider('Year', 2014, 2019, (2014,2019))
     segmentation = st.sidebar.radio('Segmentation', ('Total', 'By Year'))
 
@@ -29,6 +31,10 @@ def write():
     ######
     st.title("Accidents")
     # st.subheader('Accidents')
+
+    address = st.text_input('Address', 'Carrera 98')
+
+    st.write(f'my address is {address}')
 
     # burbujas
     temp = temperature[year[1]] 
