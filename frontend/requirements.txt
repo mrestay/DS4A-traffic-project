@@ -8,3 +8,4 @@ pandas==1.0.1
 scikit-learn==0.22.1
 joblib==0.14.1
 requests==2.23.0
+pydeck==0.3.1
