@@ -17,4 +17,24 @@ def write():
   option = st.selectbox('options:',options_list)
   st.write('You selected:', option.split(': ')[0])
 
+  st.deck_gl_chart(
+     viewport={
+         'latitude': 4.65,
+         'longitude': -74.11,
+         'zoom': 11,
+         'pitch': 50,
+     },
+     layers=[{
+         'type': 'HexagonLayer',
+         # 'data': df,
+         'radius': 200,
+         'elevationScale': 4,
+         'elevationRange': [0, 1000],
+         'pickable': True,
+         'extruded': True,
+     }, {
+         'type': 'ScatterplotLayer',
+         # 'data': df,
+     }])
+
   # st.date_input
