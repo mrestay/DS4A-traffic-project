@@ -7,13 +7,14 @@ import altair as alt
 import pydeck as pdk
 
 
+from .sidebar import *
+
 # read dataset
 data_folder = '../data'
 accidents_file = os.path.join(data_folder, 'accident_clean.csv')
 accidents = pd.read_csv(accidents_file,sep=',')
 # accidents.head()
 
-year = st.sidebar.slider('Year', 2014, 2019, (2014,2019))
 
 accidents = accidents[accidents['year'] <= year[1]][accidents['year'] >= year[0]]
 
@@ -33,9 +34,6 @@ by_hour = by_hour_cross
 ######
 st.title("Traffic project")
 st.subheader('Accidents')
-
-st.sidebar.radio('Segmentation', ('Total', 'By Year'))
-
 
 # burbujas
 from .widgets import bubble, tiles
