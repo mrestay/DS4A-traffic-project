@@ -1,6 +1,7 @@
 import streamlit as st
 from widgets import video_youtube
 from darksky import get_dataframe
+from model_apply import model_apply
 import googlemaps
 import datetime
 import pandas as pd
@@ -41,7 +42,12 @@ def write():
     weather = get_dataframe(location_dict['lat'], location_dict['lng'])
     weather['x'] = location_dict['lat']
     weather['y'] = location_dict['lng']
-    st.table(weather[weather.time == datetime_input])
+    weather_filtered = weather[weather.time == datetime_input]
+    #st.table(weather_filtered)
+
+    st.write(model_apply(weather_filtered, '../data/finalized_model.sav'))
+    df = pd.DataFrame.from_dict(location_dict)
+    st.write(df)
 
     st.deck_gl_chart(
      viewport={
