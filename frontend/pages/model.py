@@ -16,6 +16,10 @@ def write():
     address = st.text_input('Search for place', 'aeropuerto')
     geocode_result = gmaps.places(address, (4.6347139, -74.1070325), 20000)
 
+
+    df = pd.DataFrame([4.65, -74.11]).T
+    df.columns =['lat', 'lon']
+
     # st.write(geocode_result)
 
     options_list = [str(ind) + ') ' + str(a['name']) + ': ' + str(a['formatted_address']) for ind, a in
@@ -35,7 +39,6 @@ def write():
     time = st.selectbox('Choose an hour:', list(range(25)))
     hour = datetime.time(time).strftime("%H:00:00")
     st.write('You selected:', hour)
-
 
     datetime_input = str(date) + ' ' + hour
     st.write(datetime_input)
