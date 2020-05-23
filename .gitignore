@@ -2,3 +2,4 @@
 /eda/.ipynb_checkpoints
 .vscode/
 .idea/
+/scripts/weather.py
