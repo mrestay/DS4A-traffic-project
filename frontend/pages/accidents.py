@@ -4,8 +4,8 @@ import numpy as np
 import altair as alt
 # from vega_datasets import data
 import pydeck as pdk
-from ..data import accidents, temperature, precipitation, agg
-from ..widgets import bubble, tiles
+from data import accidents, temperature, precipitation, agg
+from widgets import bubble, tiles
 
 def write():
 

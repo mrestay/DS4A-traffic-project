@@ -1,8 +1,8 @@
 import streamlit as st
-from ..widgets import video_youtube
+from widgets import video_youtube
 
 def write():
-  st.title('General')
+  st.title('About')
 
   st.markdown("""
     This is an introduction of our project
