@@ -77,9 +77,10 @@ def write():
     # st.write(year)
     # st.write(by_hour)
 
+    # st.write(type(accidents_by_year.severity.unique()))
     # by hour
     by_hour_chart = alt.Chart(by_hour).transform_fold(
-        accidents_by_year.severity.unique(),
+        list(accidents_by_year.severity.unique()),
         as_=['severity', 'accident_count']
     ).mark_bar().encode(
         # alt.X("Accidents by hour", bin=True),
@@ -88,6 +89,7 @@ def write():
         color='severity:N',
         tooltip=['accident_count:Q', 'severity:N']
     )
+
     st.altair_chart(by_hour_chart, use_container_width=True)
 
 
@@ -104,6 +106,7 @@ def write():
         color='accident_count:Q',
         tooltip=['hour','day', 'accident_count']
     )
+
     st.altair_chart(by_day_chart, use_container_width=True)
 
     DATE_COLUMN = 'date/time'
