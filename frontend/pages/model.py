@@ -43,7 +43,7 @@ def write():
          'latitude': 4.65,
          'longitude': -74.11,
          'zoom': 11,
-         'pitch': 50,
+         'pitch': 100,
      },
      layers=[{
          'type': 'HexagonLayer',
