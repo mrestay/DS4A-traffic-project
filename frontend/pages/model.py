@@ -37,7 +37,8 @@ def write():
     weather['x'] = location_dict['lat']
     weather['y'] = location_dict['lng']
     st.table(weather[weather.time == datetime_input])
-  st.deck_gl_chart(
+
+    st.deck_gl_chart(
      viewport={
          'latitude': 4.65,
          'longitude': -74.11,
