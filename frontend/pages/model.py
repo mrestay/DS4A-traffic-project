@@ -16,9 +16,6 @@ def write():
     address = st.text_input('Search for place', 'aeropuerto')
     geocode_result = gmaps.places(address, (4.6347139, -74.1070325), 20000)
 
-    df = pd.DataFrame([4.65, -74.11]).T
-    df.columns = ['lat', 'lon']
-
     # st.write(geocode_result)
 
     options_list = [str(ind) + ') ' + str(a['name']) + ': ' + str(a['formatted_address']) for ind, a in
@@ -29,7 +26,7 @@ def write():
     st.write('You selected:', option.split(': ')[0].split(') ')[1], '\nwith lat: ', location_dict['lat'], 'and long: ',
              location_dict['lng'])
 
-    date = st.date_input('Choose a date:', now, now + timedelta(days=5))
+    date = st.date_input('Choose a date:',value=None, min_value=now, max_value=now + timedelta(days=2))
     st.write('You selected:', date)
 
     # st.write(geocode_result)
@@ -39,13 +36,13 @@ def write():
     st.write('You selected:', hour)
 
     datetime_input_string = str(date) + ' ' + hour
-    st.write(datetime_input_string)
+    #st.write(datetime_input_string)
     datetime_input_dt = datetime.strptime(datetime_input_string, '%Y-%m-%d %H:%M:%S')
     weather = get_dataframe(location_dict['lat'], location_dict['lng'])
     weather['x'] = location_dict['lat']
     weather['y'] = location_dict['lng']
     weather_filtered = weather[weather.time == datetime_input_string]
-    st.dataframe(weather)
+    #st.dataframe(weather)
 
     if now > datetime_input_dt - timedelta(hours=48) and datetime_input_dt > now + timedelta(hours=5):
         st.write(
@@ -63,18 +60,18 @@ def write():
         opacity=0.8,
         stroked=True,
         filled=True,
-        radius_scale=6,
+        radius_scale=100,
         radius_min_pixels=1,
         radius_max_pixels=100,
         line_width_min_pixels=1,
-        get_position="coordinates",
+        get_position=['lon', 'lat'],
         get_radius="exits_radius",
-        get_fill_color=[255, 140, 0],
+        get_fill_color=[0, 102, 204],
         get_line_color=[0, 0, 0],
     )
 
     # Set the viewport location
-    view_state = pdk.ViewState(latitude=location_dict['lat'], longitude=location_dict['lat'], zoom=10, bearing=0, pitch=0)
+    view_state = pdk.ViewState(latitude=location_dict['lat'], longitude=location_dict['lng'], zoom=11, bearing=0, pitch=0)
 
     # Render
     r = pdk.Deck(layers=[layer], initial_view_state=view_state,
@@ -82,14 +79,3 @@ def write():
                  mapbox_key="pk.eyJ1IjoiZHM0YWJvZ3RhZzMiLCJhIjoiY2thazhpY3BwMG1nMDJybXEwdXRoMGZkciJ9.6DklXoUDb-sTIyRUUm5Qww")
 
     st.pydeck_chart(r)
-    # st.deck_gl_chart(
-    #     viewport={
-    #         'latitude': df.lat,
-    #         'longitude': df.lon,
-    #         'zoom': 11,
-    #         'pitch': 40.5
-    #     },
-    #     layers=[{
-    #         'type': 'ScatterplotLayer',
-    #         'data': df,
-    #     }])
