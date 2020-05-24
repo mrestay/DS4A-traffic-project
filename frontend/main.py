@@ -5,11 +5,15 @@ import pages.cluster as cluster
 import pages.climate as climate
 import pages.accidents as accidents
 import pages.model as model
+import pages.summary as summary
+import pages.more as more
 
 from importlib import reload  
 
 PAGES = {
     "About": about,
+    "Summary": summary,
+    "More Analysis": more,
     "General": general,
     "Clusters": cluster,
     "Weather": climate,
