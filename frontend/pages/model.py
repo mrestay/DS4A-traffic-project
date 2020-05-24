@@ -26,23 +26,23 @@ def write():
     st.write('You selected:', option.split(': ')[0].split(') ')[1], '\nwith lat: ', location_dict['lat'], 'and long: ',
              location_dict['lng'])
 
-    date = st.date_input('Choose a date:',value=None, min_value=now, max_value=now + timedelta(days=2))
+    date = st.date_input('Choose a date:', value=None, min_value=now, max_value=now + timedelta(days=2))
     st.write('You selected:', date)
 
     # st.write(geocode_result)
 
-    time_input = st.selectbox('Choose an hour:', list(range(24)))
-    hour = time(time_input).strftime("%H:00:00")
+    time_input = st.selectbox('Choose an hour:', [f'{x}:00' for x in range(24)])
+    hour = time(int(time_input.split(':')[0])).strftime("%H:%M:00")
     st.write('You selected:', hour)
 
-    datetime_input_string = str(date) + ' ' + hour
-    #st.write(datetime_input_string)
+    datetime_input_string = str(date) + ' ' + str(hour)
+    # st.write(datetime_input_string)
     datetime_input_dt = datetime.strptime(datetime_input_string, '%Y-%m-%d %H:%M:%S')
     weather = get_dataframe(location_dict['lat'], location_dict['lng'])
     weather['x'] = location_dict['lat']
     weather['y'] = location_dict['lng']
     weather_filtered = weather[weather.time == datetime_input_string]
-    #st.dataframe(weather)
+    # st.dataframe(weather)
 
     if now > datetime_input_dt - timedelta(hours=48) and datetime_input_dt > now + timedelta(hours=5):
         st.write(
@@ -71,7 +71,8 @@ def write():
     )
 
     # Set the viewport location
-    view_state = pdk.ViewState(latitude=location_dict['lat'], longitude=location_dict['lng'], zoom=11, bearing=0, pitch=0)
+    view_state = pdk.ViewState(latitude=location_dict['lat'], longitude=location_dict['lng'], zoom=11, bearing=0,
+                               pitch=0)
 
     # Render
     r = pdk.Deck(layers=[layer], initial_view_state=view_state,
