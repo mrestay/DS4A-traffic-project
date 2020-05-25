@@ -1,13 +1,10 @@
 import pandas as pd
-import os
 import geopandas
 import sqlalchemy
-import streamlit as st
 # RDS connection
 connection_uri = 'postgres+psycopg2://postgres:nOocvi5MWwXqoyITp5Z7m2Je5JXBlDlznqCFCsLX@ds4a.czdm3x741xmp.us-east-1.rds.amazonaws.com/ds4a'
-data_folder = '../data'
 engine = sqlalchemy.create_engine(connection_uri)
-
+# Read main dataset
 accidents = pd.read_sql_table("accidents", con=engine)
 
 # accidents_All1 = accidents_All[accidents_All['sample_type'] == 1]
@@ -100,8 +97,6 @@ precipitation = p_year.precipIntensity.transpose()
 # borough_data = df
 
 #Clusters
-centroids_file = os.path.join(data_folder, 'centroids_combined.csv')
 centroids = pd.read_sql_table('centroids', con=engine)
 
-points_file = os.path.join(data_folder, 'clustered_points_combined.csv')
 clustered_points = pd.read_sql_table('clusters', con=engine)
