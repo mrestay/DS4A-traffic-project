@@ -1,5 +1,8 @@
 import streamlit as st
 import pydeck as pdk
+import pandas as pd
+# from data import borough_data,aa
+# from data import accidents
 
 def write():
   st.title('Climate')
@@ -10,7 +13,8 @@ def write():
   
   type_g = st.radio('classify by', ['accident_density_population', 'accident_density', 'accident_count'])
   st.pydeck_chart(pdk.Deck(
-    map_style='mapbox://styles/mapbox/light-v9',
+    map_style='mapbox://styles/mapbox/dark-v9',
+    mapbox_key=mapbox_key
     initial_view_state=pdk.ViewState(
         latitude=4.480335,
         longitude=-74.083644,
