@@ -9,7 +9,7 @@ from conf import mapbox_key
 def write():
 
     #--- sidebar ---
-    year = st.sidebar.slider('Year', 2014, 2019, (2014,2019))
+    year = st.sidebar.slider('Year', 2015, 2019, (2015,2019))
     segmentation = st.sidebar.radio('Segmentation', ('Total', 'By Year'))
 
     accidents_by_year = accidents[accidents['year'] <= year[1]][accidents['year'] >= year[0]]
@@ -104,19 +104,8 @@ def write():
 
     st.altair_chart(by_day_chart, use_container_width=True)
 
-    DATE_COLUMN = 'date/time'
-    DATA_URL = ('https://s3-us-west-2.amazonaws.com/'
-             'streamlit-demo-data/uber-raw-data-sep14.csv.gz')
-
-    @st.cache
-    def load_data(nrows):
-        data = pd.read_csv(DATA_URL, nrows=nrows)
-        lowercase = lambda x: str(x).lower()
-        data.rename(lowercase, axis='columns', inplace=True)
-        data[DATE_COLUMN] = pd.to_datetime(data[DATE_COLUMN])
-        return data
-
-    data = accidents_by_year.sample(frac=0.1)
+    accidents_by_year = accidents_by_year.sample(frac=0.1)
+    # st.table(data)
 
     COLOR_BREWER_BLUE_SCALE = [
         [240, 249, 232],
@@ -127,19 +116,11 @@ def write():
         [8, 104, 172],
     ]
 
-    st.pydeck_chart(pdk.Deck(
-      map_style='mapbox://styles/mapbox/light-v9',
-      mapbox_key=mapbox_key,
-      initial_view_state=pdk.ViewState(
-          latitude=4.654335,
-          longitude=-74.083644,
-          zoom=11,
-        #   pitch=50,
-      ),
-      layers=[
-          pdk.Layer(
+    # print(accidents_by_year.info())
+
+    layer = pdk.Layer(
             "HeatmapLayer",
-            data=data,
+            accidents_by_year[['x','y','severity_numeric']],
             opacity=0.9,
             get_position=["x", "y"],
             aggregation='"MEAN"',
@@ -148,5 +129,15 @@ def write():
             get_weight="severity_numeric",
             pickable=True,
         )
-        ],
+
+    st.pydeck_chart(pdk.Deck(
+      map_style='mapbox://styles/mapbox/dark-v9',
+      mapbox_key=mapbox_key,
+      initial_view_state=pdk.ViewState(
+          latitude=4.654335,
+          longitude=-74.083644,
+          zoom=11,
+        #   pitch=50,
+      ),
+      layers=[layer],
     ))
