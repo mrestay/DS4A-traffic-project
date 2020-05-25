@@ -12,14 +12,12 @@ def write():
 
   if choice == 'Climate in traffic accidents':
         st.title('Analysis of weather in traffic accidents.')
-        
-        #### for waiting and introduction text:
-        st.balloons()
+
         #### text about this:
         st.markdown('Let''s look at some interesting data on the recorded climate, at the time of traffic accidents.')
         
         ##### calculated the accidents per each summary weather:
-        summary=pd.DataFrame(accidents_All.summary.value_counts()).reset_index(drop=False)
+        summary=pd.DataFrame(accidents.summary.value_counts()).reset_index(drop=False)
         summary.columns=['weather','accidents']                        
         #### plotting a bar chart with alt:
         st.subheader('Number of accidents for each climate state.')
@@ -34,10 +32,10 @@ def write():
         st.altair_chart(bars, use_container_width=True)
 
         #### calculated mean tempeture by month
-        m_temperature=accidents_All[['month','temperature']].groupby('month').agg(['mean','max','min'])#.reset_index(drop=True)
+        m_temperature=accidents[['month','temperature']].groupby('month').agg(['mean','max','min'])#.reset_index(drop=True)
         m_temperature.columns=['mean','max','min']              
         #### calculated mean tempeture by year
-        y_temperature=accidents_All[['year','temperature']].groupby('year').agg(['mean','max','min'])#.reset_index(drop=True)
+        y_temperature=accidents[['year','temperature']].groupby('year').agg(['mean','max','min'])#.reset_index(drop=True)
         y_temperature.columns=['mean','max','min']
         
         ### making the options and plots
@@ -51,12 +49,12 @@ def write():
               st.line_chart(y_temperature)
 
         #### calculated mean tempeture by precipIntensity
-        m_precipIntensity=accidents_All[['month','precipIntensity']].groupby('month').agg(['mean','max','min'])
+        m_precipIntensity=accidents[['month','precipIntensity']].groupby('month').agg(['mean','max','min'])
         m_precipIntensity.columns=['mean','max','min']
         m_precipIntensity
 
         #### calculated mean precipIntensity by year
-        y_precipIntensity=accidents_All[['year','precipIntensity']].groupby('year').agg(['mean','max','min'])
+        y_precipIntensity=accidents[['year','precipIntensity']].groupby('year').agg(['mean','max','min'])
         y_precipIntensity.columns=['mean','max','min']
         y_precipIntensity
 
@@ -72,7 +70,7 @@ def write():
         #############################
         ### calculated relation accident weather and severity
         st.header('**Relation into weather and severity.**')
-        cross_ws = accidents_All[['summary', 'severity','population']].groupby(['summary', 'severity']).count().reset_index()
+        cross_ws = accidents[['summary', 'severity','population']].groupby(['summary', 'severity']).count().reset_index()
         cross_ws.columns=['weather', 'severity','accidents']
         ### ploting heatmap
         accidecross_ws_chart=nt_type_s= alt.Chart(cross_ws).mark_rect().encode(
@@ -86,7 +84,7 @@ def write():
         #############################
         ### calculated relation accident weather and accident_type
         st.header('**Relation into weather and accident_type.**')
-        cross_wt = accidents_All[['summary', 'accident_type','population']].groupby(['summary', 'accident_type']).count().reset_index()
+        cross_wt = accidents[['summary', 'accident_type','population']].groupby(['summary', 'accident_type']).count().reset_index()
         cross_wt.columns=['weather', 'accident_type','accidents']
         ### ploting heatmap
         accidecross_wt_chart=nt_type_s= alt.Chart(cross_wt).mark_rect().encode(
@@ -100,13 +98,12 @@ def write():
  ###################################################################
   elif choice == 'Accident severity analysis':
         st.title('Accident severity analysis.')
-        #### for waiting
-        st.balloons()
+
         #### text about this:
         st.markdown('Let''s look at some interesting data on Accident severity analysis')
 
         ##### calculated the accidents per each severity
-        severity=pd.DataFrame(accidents_All.severity.value_counts()).reset_index(drop=False)
+        severity=pd.DataFrame(accidents.severity.value_counts()).reset_index(drop=False)
         severity.columns=['severity','accidents']
         severity
                 
@@ -123,8 +120,8 @@ def write():
         st.altair_chart(bars2, use_container_width=True)
 
         ### calculated accidents by severity and year
-        cross_severity_y = accidents_All[['year', 'severity','population']].groupby(['year', 'severity']).count().reset_index()
-        cross_severity_y.columns=['year', 'severity','accidents']
+        cross_severity_y = accidents[['year', 'severity','population']].groupby(['year', 'severity']).count().reset_index()
+        cross_severity_y.columns = ['year', 'severity','accidents']
         ### ploting heatmap
         severity_y= alt.Chart(cross_severity_y).mark_rect().encode(
         x='year:O',
@@ -134,7 +131,7 @@ def write():
         )
         #st.altair_chart(severity_y, use_container_width=True)
         ### calculated accidents by severity and month
-        cross_severity_m = accidents_All[['month', 'severity','population']].groupby(['month', 'severity']).count().reset_index()
+        cross_severity_m = accidents[['month', 'severity','population']].groupby(['month', 'severity']).count().reset_index()
         cross_severity_m.columns=['month', 'severity','accidents']
         ### ploting heatmap
         severity_m= alt.Chart(cross_severity_m).mark_rect().encode(
@@ -156,7 +153,7 @@ def write():
         
         ### calculated relation accident type and severity
         st.header('**Relation into accident type and severity.**')
-        cross = accidents_All[['accident_type', 'severity','population']].groupby(['accident_type', 'severity']).count().reset_index()
+        cross = accidents[['accident_type', 'severity','population']].groupby(['accident_type', 'severity']).count().reset_index()
         cross.columns=['accident_type', 'severity','accidents']
         ### ploting heatmap
         accident_type_s= alt.Chart(cross).mark_rect().encode(
@@ -172,13 +169,12 @@ def write():
 ###################################################################
   elif choice == 'Accident type analysis':
         st.title('Accident type analysis.')
-         #### for waiting
-        st.balloons()
+
         #### text about this:
         st.markdown('Let''s look at some interesting data on Accident type analysis.')
 
         ##### calculated the accidents per each severity
-        accident_type=pd.DataFrame(accidents_All.accident_type.value_counts()).reset_index(drop=False)
+        accident_type=pd.DataFrame(accidents.accident_type.value_counts()).reset_index(drop=False)
         accident_type.columns=['accident_type','accidents']
         
                 
@@ -195,7 +191,7 @@ def write():
         st.altair_chart(bars3, use_container_width=True)
 
         ### calculated accidents by accident_type and year
-        cross_accident_type_y = accidents_All[['year', 'accident_type','population']].groupby(['year', 'accident_type']).count().reset_index()
+        cross_accident_type_y = accidents[['year', 'accident_type','population']].groupby(['year', 'accident_type']).count().reset_index()
         cross_accident_type_y.columns=['year', 'accident_type','accidents']
         ### ploting heatmap
         accident_type_y= alt.Chart(cross_accident_type_y).mark_rect().encode(
@@ -206,7 +202,7 @@ def write():
         )
         #st.altair_chart(accident_type_y, use_container_width=True)
         ### calculated accidents by accident_type and month
-        cross_accident_type_m = accidents_All[['month', 'accident_type','population']].groupby(['month', 'accident_type']).count().reset_index()
+        cross_accident_type_m = accidents[['month', 'accident_type','population']].groupby(['month', 'accident_type']).count().reset_index()
         cross_accident_type_m.columns=['month', 'accident_type','accidents']
         ### ploting heatmap
         accident_type_m= alt.Chart(cross_accident_type_m).mark_rect().encode(
@@ -228,7 +224,7 @@ def write():
         
         ### calculated relation accident type and severity
         st.header('**Relation into accident type and severity.**')
-        cross = accidents_All[['accident_type', 'severity','population']].groupby(['accident_type', 'severity']).count().reset_index()
+        cross = accidents[['accident_type', 'severity','population']].groupby(['accident_type', 'severity']).count().reset_index()
         cross.columns=['accident_type', 'severity','accidents']
         ### ploting heatmap
         accident_type_s= alt.Chart(cross).mark_rect().encode(
