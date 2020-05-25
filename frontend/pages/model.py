@@ -11,7 +11,7 @@ gmaps = googlemaps.Client(key='AIzaSyAiMEuA9twXdcMskBgO8CzGul1yfUDhz8k')
 
 
 def write():
-    st.title('Model')
+    st.title('Interactive traffic accident forecasting')
 
     address = st.text_input('Search for place', 'aeropuerto')
     geocode_result = gmaps.places(address, (4.6347139, -74.1070325), 20000)
