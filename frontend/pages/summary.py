@@ -91,6 +91,21 @@ def write():
     else:
         st.write(' ') 
 
+    ############################################# by hour
+    by_hour=accidents_All['hour'].value_counts(sort=True).rename_axis('hour').reset_index(name='accident_count').sort_values(by='hour').reset_index(drop=True)
+
+    #st.header('hour accidents.')
+    if st.button('Accidents by hour.'):
+         placeholder2 = st.empty()
+         if not st.checkbox("Hide hourly accidents."):
+            f, ax = plt.subplots(figsize=(27, 12))
+            sns.set(style="whitegrid",font_scale=2)
+            sns.lineplot(by_hour.hour, by_hour.accident_count, color='red')
+            plt.xlabel('hour')
+            plt.ylabel('Number of Accidents')
+            st.pyplot()
+    else:
+        st.write(' ') 
 
 
 
