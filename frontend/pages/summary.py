@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import altair as alt
 import pydeck as pdk
-from data import accidents_All
+from data import accidents
 from widgets import bubble, tiles
 import seaborn as sns
 from matplotlib import pyplot as plt

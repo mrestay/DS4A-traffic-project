@@ -1,5 +1,5 @@
 import streamlit as st
-from data import centroids, clustered_points, accidents_All
+from data import centroids, clustered_points, accidents
 import pydeck as pdk
 
 
