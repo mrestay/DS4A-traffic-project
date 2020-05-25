@@ -11,7 +11,7 @@ def write():
     centroids_filtered = centroids[centroids.year == year]
     clustered_points_filtered = clustered_points[clustered_points.year == year]
     st.write(
-        f'Clustered {accidents_All[accidents_All.year == year].shape[0]} points down to {centroids_filtered.shape[0]} clusters, for {round(1 - centroids_filtered.shape[0] / accidents_All[accidents_All.year == year].shape[0], 2) * 100}% compression.'
+        f'Clustered {accidents[accidents.year == year].shape[0]} points down to {centroids_filtered.shape[0]} clusters, for {round(1 - centroids_filtered.shape[0] / accidents[accidents.year == year].shape[0], 2) * 100}% compression.'
     )
 
     layer1 = pdk.Layer(
