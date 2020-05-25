@@ -7,7 +7,7 @@ from conf import mapbox_key
 # from data import accidents
 
 def write():
-  st.title('Climate')
+  st.title('Spatial Analysis')
 
   # data = borough_data.head(1).to_json()
   # data = '../data/borough.json'
@@ -21,7 +21,7 @@ def write():
         latitude=4.480335,
         longitude=-74.083644,
         zoom=10,
-        pitch=50,
+        pitch=0,
     ),
     layers=[
         pdk.Layer(

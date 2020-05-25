@@ -4,6 +4,7 @@ import altair as alt
 import pydeck as pdk
 from data import accidents, temperature, precipitation, agg
 from widgets import bubble, tiles
+from conf import mapbox_key
 
 def write():
 
@@ -14,13 +15,13 @@ def write():
     accidents_by_year = accidents[accidents['year'] <= year[1]][accidents['year'] >= year[0]]
 
     # by date
-    by_date = accidents_by_year[['date','accident_id',  'year']].groupby(['year','date']).count().reset_index().sort_values(by='date')
+    by_date = accidents_by_year[['date','population','year']].groupby(['year','date']).count().reset_index().sort_values(by='date')
     by_date = by_date.reset_index(drop=True)
 
     # by hour
-    # by_hour_g = accidents_by_year[['hour','accident_id', 'year', 'severity']].groupby(['year','hour']).count().reset_index().sort_values(by='year')
+    # by_hour_g = accidents_by_year[['hour','population', 'year', 'severity']].groupby(['year','hour']).count().reset_index().sort_values(by='year')
     # by_hour_g = by_hour_g.reset_index(drop=True)
-    # by_hour_g.rename(columns={'accident_id':'accident_count'}, inplace=True)
+    # by_hour_g.rename(columns={'population':'accident_count'}, inplace=True)
     by_hour_cross = pd.crosstab(accidents_by_year.hour, accidents_by_year.severity).reset_index()
 
     # by_hour = pd.merge(by_hour_cross, by_hour_g, on=['year', 'hour'])
@@ -29,10 +30,6 @@ def write():
     ######
     st.title("Accidents")
     # st.subheader('Accidents')
-
-    address = st.text_input('Address', 'Carrera 98')
-
-    st.write(f'my address is {address}')
 
     # burbujas
     temp = temperature[year[1]] 
@@ -92,7 +89,7 @@ def write():
 
 
     by_day_cross = accidents_by_year.groupby(['hour', 'day']).count().reset_index()
-    by_day_cross.rename(columns={'accident_id':'accident_count'}, inplace=True)
+    by_day_cross.rename(columns={'population':'accident_count'}, inplace=True)
 
     # st.write(by_day_cross)
     # row_sums = by_day_cross.to_numpy().sum(axis=1, keepdims=True)
@@ -132,6 +129,7 @@ def write():
 
     st.pydeck_chart(pdk.Deck(
       map_style='mapbox://styles/mapbox/light-v9',
+      mapbox_key=mapbox_key,
       initial_view_state=pdk.ViewState(
           latitude=4.654335,
           longitude=-74.083644,

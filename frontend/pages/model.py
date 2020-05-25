@@ -60,7 +60,7 @@ def write():
         opacity=0.8,
         stroked=True,
         filled=True,
-        radius_scale=100,
+        radius_scale=200,
         radius_min_pixels=1,
         radius_max_pixels=100,
         line_width_min_pixels=1,
@@ -71,7 +71,7 @@ def write():
     )
 
     # Set the viewport location
-    view_state = pdk.ViewState(latitude=location_dict['lat'], longitude=location_dict['lng'], zoom=11, bearing=0,
+    view_state = pdk.ViewState(latitude=location_dict['lat'], longitude=location_dict['lng'], zoom=12, bearing=0,
                                pitch=0)
 
     # Render

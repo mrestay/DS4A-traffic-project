@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 
 def write():
     st.title('What do you want to see?')
-    st.markdown('<style>h1{color: red;}</style>', unsafe_allow_html=True)
+    # st.markdown('<style>h1{color: red;}</style>', unsafe_allow_html=True)
 
     ############################################# by year
     by_year = accidents['year'].value_counts(sort=True).rename_axis('year').reset_index(name='accident_count').sort_values(by='year').reset_index(drop=True)
