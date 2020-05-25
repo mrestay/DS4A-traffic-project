@@ -23,7 +23,7 @@ def write():
     layers=[
         pdk.Layer(
           "GeoJsonLayer",
-          "http://192.168.1.11:8080/data1.json",
+          "https://ds4a-traffic-accident-project-core.s3.amazonaws.com/datasets/borough.json",
           id="geojson",
           opacity=0.8,
           stroked=False,
