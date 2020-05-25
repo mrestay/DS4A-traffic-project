@@ -13,10 +13,10 @@ from importlib import reload
 PAGES = {
     "About": about,
     "Summary": summary,
-    "More Analysis": more,
-    "General": general,
+    "General Analysis": more,
+    # "General": general,
     "Clusters": cluster,
-    "Weather": climate,
+    "Spatial analysis": climate,
     "Accidents": accidents,
     'Model': model,
 }
@@ -39,10 +39,10 @@ def main():
     st.sidebar.info(
         """
         This app is made by:
-        - Bibiana Molina
-        - Juan Agilar
-        - Mateo Restrepo
-        - Sebastian Tabares
+        - [Bibiana Molina](https://www.linkedin.com/in/nebmolinaze)
+        - [Juan Aguilar](https://www.linkedin.com/in/juanguilar)
+        - [Mateo Restrepo](https://www.linkedin.com/in/mateorestrepoa)
+        - [Sebastian Tabares](https://www.linkedin.com/in/sytabaresa)
 """
     )
 

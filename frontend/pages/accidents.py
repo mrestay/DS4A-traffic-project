@@ -1,28 +1,27 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
 import altair as alt
-# from vega_datasets import data
 import pydeck as pdk
 from data import accidents, temperature, precipitation, agg
 from widgets import bubble, tiles
+from conf import mapbox_key
 
 def write():
 
     #--- sidebar ---
-    year = st.sidebar.slider('Year', 2014, 2019, (2014,2019))
+    year = st.sidebar.slider('Year', 2015, 2019, (2015,2019))
     segmentation = st.sidebar.radio('Segmentation', ('Total', 'By Year'))
 
     accidents_by_year = accidents[accidents['year'] <= year[1]][accidents['year'] >= year[0]]
 
     # by date
-    by_date = accidents_by_year[['date','accident_id',  'year']].groupby(['year','date']).count().reset_index().sort_values(by='date')
+    by_date = accidents_by_year[['date','population','year']].groupby(['year','date']).count().reset_index().sort_values(by='date')
     by_date = by_date.reset_index(drop=True)
 
     # by hour
-    # by_hour_g = accidents_by_year[['hour','accident_id', 'year', 'severity']].groupby(['year','hour']).count().reset_index().sort_values(by='year')
+    # by_hour_g = accidents_by_year[['hour','population', 'year', 'severity']].groupby(['year','hour']).count().reset_index().sort_values(by='year')
     # by_hour_g = by_hour_g.reset_index(drop=True)
-    # by_hour_g.rename(columns={'accident_id':'accident_count'}, inplace=True)
+    # by_hour_g.rename(columns={'population':'accident_count'}, inplace=True)
     by_hour_cross = pd.crosstab(accidents_by_year.hour, accidents_by_year.severity).reset_index()
 
     # by_hour = pd.merge(by_hour_cross, by_hour_g, on=['year', 'hour'])
@@ -31,10 +30,6 @@ def write():
     ######
     st.title("Accidents")
     # st.subheader('Accidents')
-
-    address = st.text_input('Address', 'Carrera 98')
-
-    st.write(f'my address is {address}')
 
     # burbujas
     temp = temperature[year[1]] 
@@ -94,7 +89,7 @@ def write():
 
 
     by_day_cross = accidents_by_year.groupby(['hour', 'day']).count().reset_index()
-    by_day_cross.rename(columns={'accident_id':'accident_count'}, inplace=True)
+    by_day_cross.rename(columns={'population':'accident_count'}, inplace=True)
 
     # st.write(by_day_cross)
     # row_sums = by_day_cross.to_numpy().sum(axis=1, keepdims=True)
@@ -109,19 +104,8 @@ def write():
 
     st.altair_chart(by_day_chart, use_container_width=True)
 
-    DATE_COLUMN = 'date/time'
-    DATA_URL = ('https://s3-us-west-2.amazonaws.com/'
-             'streamlit-demo-data/uber-raw-data-sep14.csv.gz')
-
-    @st.cache
-    def load_data(nrows):
-        data = pd.read_csv(DATA_URL, nrows=nrows)
-        lowercase = lambda x: str(x).lower()
-        data.rename(lowercase, axis='columns', inplace=True)
-        data[DATE_COLUMN] = pd.to_datetime(data[DATE_COLUMN])
-        return data
-
-    data = accidents_by_year.sample(frac=0.1)
+    accidents_by_year = accidents_by_year.sample(frac=0.1)
+    # st.table(data)
 
     COLOR_BREWER_BLUE_SCALE = [
         [240, 249, 232],
@@ -132,18 +116,11 @@ def write():
         [8, 104, 172],
     ]
 
-    st.pydeck_chart(pdk.Deck(
-      map_style='mapbox://styles/mapbox/light-v9',
-      initial_view_state=pdk.ViewState(
-          latitude=4.654335,
-          longitude=-74.083644,
-          zoom=11,
-        #   pitch=50,
-      ),
-      layers=[
-          pdk.Layer(
+    # print(accidents_by_year.info())
+
+    layer = pdk.Layer(
             "HeatmapLayer",
-            data=data,
+            accidents_by_year[['x','y','severity_numeric']],
             opacity=0.9,
             get_position=["x", "y"],
             aggregation='"MEAN"',
@@ -152,5 +129,15 @@ def write():
             get_weight="severity_numeric",
             pickable=True,
         )
-        ],
+
+    st.pydeck_chart(pdk.Deck(
+      map_style='mapbox://styles/mapbox/dark-v9',
+      mapbox_key=mapbox_key,
+      initial_view_state=pdk.ViewState(
+          latitude=4.654335,
+          longitude=-74.083644,
+          zoom=11,
+        #   pitch=50,
+      ),
+      layers=[layer],
     ))

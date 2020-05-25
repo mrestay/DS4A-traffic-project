@@ -1,21 +1,15 @@
-
 import streamlit as st
-import pandas as pd
-import numpy as np
-import altair as alt
-import pydeck as pdk
-from data import accidents_All
-from widgets import bubble, tiles
+from data import accidents
 import seaborn as sns
 from matplotlib import pyplot as plt
 
 
 def write():
     st.title('What do you want to see?')
-    st.markdown('<style>h1{color: red;}</style>', unsafe_allow_html=True)
+    # st.markdown('<style>h1{color: red;}</style>', unsafe_allow_html=True)
 
     ############################################# by year
-    by_year=accidents_All['year'].value_counts(sort=True).rename_axis('year').reset_index(name='accident_count').sort_values(by='year').reset_index(drop=True)
+    by_year = accidents['year'].value_counts(sort=True).rename_axis('year').reset_index(name='accident_count').sort_values(by='year').reset_index(drop=True)
     by_year
     #st.header('Yearly accidents.')
     if st.button('Yearly accidents'):
@@ -52,7 +46,7 @@ def write():
     ###############################################
 
     ############################################# by month
-    by_month=accidents_All['month'].value_counts(sort=True).rename_axis('month').reset_index(name='accident_count').sort_values(by='month').reset_index(drop=True)
+    by_month = accidents['month'].value_counts(sort=True).rename_axis('month').reset_index(name='accident_count').sort_values(by='month').reset_index(drop=True)
     months={1:'January',2:'February',3:'March',4:'April',
         5:'May',6:'June',7:'July',8:'August',
         9:'September',10:'October',11:'November',12:'December'}
@@ -73,7 +67,7 @@ def write():
     
     ###############################################
     ############################################# by month
-    by_day_of_week=accidents_All['day_of_week'].value_counts(sort=True).rename_axis('day_of_week').reset_index(name='accident_count').sort_values(by='day_of_week').reset_index(drop=True)
+    by_day_of_week = accidents['day_of_week'].value_counts(sort=True).rename_axis('day_of_week').reset_index(name='accident_count').sort_values(by='day_of_week').reset_index(drop=True)
     day_of_weeks={1:'Monday',2:'Tuesday',3:'Wednesday',
         4:'Thursday',5:'Friday',6:'Saturday',7:'Sunday'}
     #st.header('day_of_week accidents.')
@@ -91,6 +85,21 @@ def write():
     else:
         st.write(' ') 
 
+    ############################################# by hour
+    by_hour = accidents['hour'].value_counts(sort=True).rename_axis('hour').reset_index(name='accident_count').sort_values(by='hour').reset_index(drop=True)
+
+    #st.header('hour accidents.')
+    if st.button('Accidents by hour.'):
+         placeholder2 = st.empty()
+         if not st.checkbox("Hide hourly accidents."):
+            f, ax = plt.subplots(figsize=(27, 12))
+            sns.set(style="whitegrid",font_scale=2)
+            sns.lineplot(by_hour.hour, by_hour.accident_count, color='red')
+            plt.xlabel('hour')
+            plt.ylabel('Number of Accidents')
+            st.pyplot()
+    else:
+        st.write(' ') 
 
 
 

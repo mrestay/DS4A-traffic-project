@@ -1,29 +1,24 @@
 import streamlit as st
 import pydeck as pdk
 import pandas as pd
-from data import borough_data,aa
-# from data import accidents
+from conf import mapbox_key
 
+# from data import borough_data,aa
+# from data import accidents
+  
 def write():
-  st.title('Climate')
+  st.title('Spatial Analysis')
 
   # data = borough_data.head(1).to_json()
   # data = '../data/borough.json'
   # st.write(borough_data.head(1)['geometry'].data)
   
   type_g = st.radio('classify by', ['accident_density_population', 'accident_density', 'accident_count'])
-  st.pydeck_chart(pdk.Deck(
-    map_style='mapbox://styles/mapbox/light-v9',
-    initial_view_state=pdk.ViewState(
-        latitude=4.480335,
-        longitude=-74.083644,
-        zoom=10,
-        pitch=50,
-    ),
-    layers=[
-        pdk.Layer(
+
+
+  layer = pdk.Layer(
           "GeoJsonLayer",
-          "http://192.168.1.11:8080/data1.json",
+          "https://ds4a-traffic-accident-project-core.s3.amazonaws.com/datasets/borough.json",
           id="geojson",
           opacity=0.8,
           stroked=False,
@@ -34,7 +29,17 @@ def write():
           get_fill_color="[48, 128, properties.accident_density * 255, 255]",
           get_line_color=[255, 255, 255],
         )
-    ],
+
+  st.pydeck_chart(pdk.Deck(
+    map_style='mapbox://styles/mapbox/dark-v9',
+    mapbox_key=mapbox_key,
+    initial_view_state=pdk.ViewState(
+        latitude=4.480335,
+        longitude=-74.083644,
+        zoom=10,
+        pitch=50,
+    ),
+    layers=[layer],
     
   ))
 
