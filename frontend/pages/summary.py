@@ -1,4 +1,3 @@
-
 import streamlit as st
 from data import accidents
 import seaborn as sns
