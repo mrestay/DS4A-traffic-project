@@ -1,7 +1,7 @@
 import streamlit as st
 from data import centroids, clustered_points, accidents
 import pydeck as pdk
-
+from conf import mapbox_key
 
 def write():
     st.title('Cluster analysis')
@@ -53,6 +53,6 @@ def write():
     # Render
     r = pdk.Deck(layers=[layer1, layer2], initial_view_state=view_state,
                  map_style='mapbox://styles/mapbox/dark-v9',
-                 mapbox_key="pk.eyJ1IjoiZHM0YWJvZ3RhZzMiLCJhIjoiY2thazhpY3BwMG1nMDJybXEwdXRoMGZkciJ9.6DklXoUDb-sTIyRUUm5Qww")
+                 mapbox_key=mapbox_key)
 
     st.pydeck_chart(r)
