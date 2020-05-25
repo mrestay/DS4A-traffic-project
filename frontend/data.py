@@ -106,3 +106,11 @@ df["fill_color"] = json["features"].apply(lambda row: color_scale(row["propertie
 
 
 borough_data = df
+
+#Clusters
+centroids_file = os.path.join(data_folder, 'centroids_combined.csv')
+centroids = pd.read_csv(centroids_file)
+
+points_file = os.path.join(data_folder, 'clustered_points_combined.csv')
+clustered_points = pd.read_csv(points_file)
+
