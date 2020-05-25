@@ -1,8 +1,5 @@
 import streamlit as st
 import pydeck as pdk
-import pandas as pd
-from data import borough_data,aa
-# from data import accidents
 
 def write():
   st.title('Climate')
