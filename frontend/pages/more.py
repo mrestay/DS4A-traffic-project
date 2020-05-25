@@ -40,7 +40,6 @@ def write():
         y_temperature=accidents_All[['year','temperature']].groupby('year').agg(['mean','max','min'])#.reset_index(drop=True)
         y_temperature.columns=['mean','max','min']
         
-        
         ### making the options and plots
         st.header('**Temperature statistics.**')
         tempeture = st.radio("Select one",('By Month', 'By Year'))
