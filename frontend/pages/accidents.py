@@ -7,7 +7,7 @@ from widgets import bubble, tiles
 from conf import mapbox_key
 
 def write():
-
+    st.markdown('Use the panel on the left to select your preferred year segmentation')
     #--- sidebar ---
     year = st.sidebar.slider('Year', 2015, 2019, (2015,2019))
     segmentation = st.sidebar.radio('Segmentation', ('Total', 'By Year'))
@@ -85,6 +85,8 @@ def write():
         tooltip=['accident_count:Q', 'severity:N']
     )
 
+    st.title('Accident count/type by hour of the day')
+
     st.altair_chart(by_hour_chart, use_container_width=True)
 
 
@@ -102,6 +104,7 @@ def write():
         tooltip=['hour','day', 'accident_count']
     )
 
+    st.title('Accident count by hour of the day and day of the month')
     st.altair_chart(by_day_chart, use_container_width=True)
 
     accidents_by_year = accidents_by_year.sample(frac=0.1)
