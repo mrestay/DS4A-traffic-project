@@ -88,21 +88,23 @@ def write():
     st.altair_chart(by_hour_chart, use_container_width=True)
 
 
-    by_day_cross = accidents_by_year.groupby(['hour', 'day']).count().reset_index()
-    by_day_cross.rename(columns={'population':'accident_count'}, inplace=True)
+    #by_day_cross = accidents_by_year.groupby(['hour', 'day_of_week']).count().reset_index()
+    #by_day_cross.rename(columns={'population':'accident_count'}, inplace=True)
+    ct_hour_day = pd.crosstab(accidents.day_of_week, accidents.hour)
+    print(ct_hour_day)
 
     # st.write(by_day_cross)
     # row_sums = by_day_cross.to_numpy().sum(axis=1, keepdims=True)
     # by_day_cross = by_day_cross / row_sums
 
-    by_day_chart = alt.Chart(by_day_cross).mark_rect().encode(
-        x='hour:O',
-        y='day:O',  
-        color='accident_count:Q',
-        tooltip=['hour','day', 'accident_count']
-    )
-
-    st.altair_chart(by_day_chart, use_container_width=True)
+    # by_day_chart = alt.Chart(by_day_cross).mark_rect().encode(
+    #     x='hour:O',
+    #     y='day:O',
+    #     color='accident_count:Q',
+    #     tooltip=['hour','day_of_week', 'accident_count']
+    # )
+    #
+    # st.altair_chart(by_day_chart, use_container_width=True)
 
     accidents_by_year = accidents_by_year.sample(frac=0.1)
     # st.table(data)
