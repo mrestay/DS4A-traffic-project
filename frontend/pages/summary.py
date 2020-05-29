@@ -5,7 +5,8 @@ from matplotlib import pyplot as plt
 
 
 def write():
-    st.title('What do you want to see?')
+    st.title('Select a category')
+    st.text('Please note that plots were calculated using 2015 - 2019 accident data.')
     # st.markdown('<style>h1{color: red;}</style>', unsafe_allow_html=True)
 
     ############################################# by year
@@ -14,32 +15,35 @@ def write():
     #st.header('Yearly accidents.')
     if st.button('Yearly accidents'):
         placeholder1 = st.empty()
-        if not st.checkbox("Hide Yearly accidents."):
-            f, ax = plt.subplots(figsize=(27, 12))
+        if not st.checkbox("Hide"):  # st.checkbox("Hide Yearly accidents"):
+            f, ax = plt.subplots(figsize=(27, 16))
             sns.set(style="whitegrid",font_scale=2)
             ticks = [x for x in range(2015, 2020)]
             sns.lineplot(by_year.year, by_year.accident_count, color='red')
-            plt.xlabel('Year')
-            plt.xticks( ticks, rotation=90)
-            plt.ylabel('Number of Accidents')
+            plt.xlabel('Year', fontsize=40)
+            plt.xticks( ticks, rotation=90, fontsize=30)
+            plt.yticks(fontsize=30)
+            plt.ylabel('Number of Accidents', fontsize=40)
             st.pyplot()
     else:
         st.write(' ')   
 
     #############################################
-    #st.header('Percent change in yearly accidents.')   
+    # st.header('Percent change in yearly accidents.')
     if st.button('Percent change in yearly accidents'):
         placeholder1 = st.empty()
-        if not st.checkbox("Hide Percent change in yearly accidents"):
+        if not st.checkbox("Hide"):  # st.checkbox("Hide Percent change in yearly accidents"):
+            # st.subheader('Percent change in yearly accidents')
             by_year['percent_change'] = by_year.accident_count.pct_change()
-            f, ax = plt.subplots(figsize=(27, 12))
+            f, ax = plt.subplots(figsize=(28, 16))
             sns.set(style="whitegrid",font_scale=2)
             ticks2 = [x for x in range(2015, 2020)]              
             sns.lineplot(by_year.year, by_year.percent_change, color='b')
-            plt.title('Percent change in yearly accidents', fontsize =20)
-            plt.xlabel('Year')
-            plt.xticks( ticks2, rotation=90)
-            plt.ylabel('Number of Accidents')
+            # plt.title('Percent change in yearly accidents', fontsize =20)
+            plt.xlabel('Year', fontsize=40)
+            plt.xticks( ticks2, rotation=90, fontsize=30)
+            plt.yticks(fontsize=30)
+            plt.ylabel('Number of Accidents', fontsize=40)
             st.pyplot()
     else:
         st.write(' ') 
@@ -53,14 +57,15 @@ def write():
     #st.header('month accidents.')
     if st.button('Monthly accidents'):
         placeholder1 = st.empty()
-        if not st.checkbox("Hide monthly accidents."):
-            f, ax = plt.subplots(figsize=(27, 12))
+        if not st.checkbox("Hide"):  # st.checkbox("Hide monthly accidents"):
+            f, ax = plt.subplots(figsize=(27, 28))
             sns.set(style="whitegrid",font_scale=2)
             ticks = [months[x] for x in range(1, 13)]
             sns.lineplot(by_month.month, by_month.accident_count, color='red')
-            plt.xlabel('month')
-            plt.xticks(range(1, 13), ticks, rotation=90)
-            plt.ylabel('Number of Accidents')
+            plt.xlabel('Month', fontsize=40)
+            plt.xticks(range(1, 13), ticks, rotation=90, fontsize=30)
+            plt.yticks(fontsize=30)
+            plt.ylabel('Number of Accidents', fontsize=40)
             st.pyplot()
     else:
         st.write(' ')   
@@ -71,16 +76,17 @@ def write():
     day_of_weeks={1:'Monday',2:'Tuesday',3:'Wednesday',
         4:'Thursday',5:'Friday',6:'Saturday',7:'Sunday'}
     #st.header('day_of_week accidents.')
-    if st.button('Accidents by day of week.'):
+    if st.button('Accidents by day of the week'):
          placeholder1 = st.empty()
-         if not st.checkbox("Hide day_of_weekly accidents."):
-            f, ax = plt.subplots(figsize=(27, 12))
+         if not st.checkbox("Hide"):  # st.checkbox("Hide day_of_weekly accidents"):
+            f, ax = plt.subplots(figsize=(27, 29))
             sns.set(style="whitegrid",font_scale=2)
             ticks2 = [day_of_weeks[x] for x in range(1, 8)]
             sns.lineplot(by_day_of_week.day_of_week, by_day_of_week.accident_count, color='red')
-            plt.xlabel('day_of_week')
-            plt.xticks(range(0, 8), ticks2, rotation=90)
-            plt.ylabel('Number of Accidents')
+            plt.xlabel('Day of the Week', fontsize=40)
+            plt.xticks(range(0, 8), ticks2, rotation=90, fontsize=30)
+            plt.yticks(fontsize=30)
+            plt.ylabel('Number of Accidents', fontsize=40)
             st.pyplot()
     else:
         st.write(' ') 
@@ -89,14 +95,16 @@ def write():
     by_hour = accidents['hour'].value_counts(sort=True).rename_axis('hour').reset_index(name='accident_count').sort_values(by='hour').reset_index(drop=True)
 
     #st.header('hour accidents.')
-    if st.button('Accidents by hour.'):
+    if st.button('Accidents by hour'):
          placeholder2 = st.empty()
-         if not st.checkbox("Hide hourly accidents."):
+         if not st.checkbox("Hide"):  # st.checkbox("Hide hourly accidents"):
             f, ax = plt.subplots(figsize=(27, 12))
             sns.set(style="whitegrid",font_scale=2)
             sns.lineplot(by_hour.hour, by_hour.accident_count, color='red')
-            plt.xlabel('hour')
-            plt.ylabel('Number of Accidents')
+            plt.xlabel('Hour', fontsize=40)
+            plt.ylabel('Number of Accidents', fontsize=40)
+            plt.xticks(fontsize=30)
+            plt.yticks(fontsize=30)
             st.pyplot()
     else:
         st.write(' ') 

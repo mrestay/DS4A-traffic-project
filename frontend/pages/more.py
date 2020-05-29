@@ -7,20 +7,22 @@ from data import accidents
 from widgets import bubble, tiles
 
 def write():
-  menu=['Climate in traffic accidents','Accident severity analysis','Accident type analysis']
-  choice= st.sidebar.selectbox("Analysis:",menu)
+  menu=['Weather','Accident severity', 'Accident type']
+  choice= st.sidebar.selectbox("Type of analysis:", menu)
+  st.markdown('Select on the \'type of analysis\' box on the left what you\'d like to see')
 
-  if choice == 'Climate in traffic accidents':
-        st.title('Analysis of weather in traffic accidents.')
+
+  if choice == 'Weather':
+        st.title('Weather analysis in traffic accidents')
 
         #### text about this:
-        st.markdown('Let''s look at some interesting data on the recorded climate, at the time of traffic accidents.')
+        # st.markdown('Let\'s look at some interesting data on the recorded climate, at the time of traffic accidents.')
         
         ##### calculated the accidents per each summary weather:
         summary=pd.DataFrame(accidents.summary.value_counts()).reset_index(drop=False)
-        summary.columns=['weather','accidents']                        
+        summary.columns=['weather','accidents']
         #### plotting a bar chart with alt:
-        st.subheader('Number of accidents for each climate state.')
+        st.subheader('Weather condition vs. number of accidents')
         bars = alt.Chart(summary).mark_bar().encode(
             x='accidents',
             y="weather",opacity=alt.value(0.5),
@@ -39,13 +41,13 @@ def write():
         y_temperature.columns=['mean','max','min']
         
         ### making the options and plots
-        st.header('**Temperature statistics.**')
-        tempeture = st.radio("Select one",('By Month', 'By Year'))
-        if tempeture == 'By Month':
-              st.subheader('Temperature statistics for each month.')
+        st.header('**Temperature**')
+        tempeture = st.radio("Select one",('By month', 'By year'), key = 0)
+        if tempeture == 'By month':
+              st.subheader('Temperature values for each month')
               st.line_chart(m_temperature)
         else:
-              st.subheader('Temperature statistics for each year.')
+              st.subheader('Temperature values for each year')
               st.line_chart(y_temperature)
 
         #### calculated mean tempeture by precipIntensity
@@ -59,17 +61,17 @@ def write():
         y_precipIntensity
 
         ### making the options and plots
-        st.header('**Precipitation Intensity statistics.**')
-        Precipitation = st.radio("Select one By",('Month', 'Year'))
-        if Precipitation == 'Month':
-              st.subheader('Precipitation Intensity for each month.')
+        st.header('**Precipitation Intensity**')
+        Precipitation = st.radio("Select one",('By month', 'By year'), key = 1)
+        if Precipitation == 'By month':
+              st.subheader('Precipitation Intensity values for each month')
               st.line_chart(m_precipIntensity)
         else:
-              st.subheader('Precipitation Intensity for each year.')
+              st.subheader('Precipitation Intensity values for each year')
               st.line_chart(y_precipIntensity)
         #############################
         ### calculated relation accident weather and severity
-        st.header('**Relation into weather and severity.**')
+        st.header('**Weather vs. Accident Severity**')
         cross_ws = accidents[['summary', 'severity','population']].groupby(['summary', 'severity']).count().reset_index()
         cross_ws.columns=['weather', 'severity','accidents']
         ### ploting heatmap
@@ -83,7 +85,7 @@ def write():
 
         #############################
         ### calculated relation accident weather and accident_type
-        st.header('**Relation into weather and accident_type.**')
+        st.header('**Weather vs. Accident Type**')
         cross_wt = accidents[['summary', 'accident_type','population']].groupby(['summary', 'accident_type']).count().reset_index()
         cross_wt.columns=['weather', 'accident_type','accidents']
         ### ploting heatmap
@@ -96,11 +98,11 @@ def write():
         st.altair_chart(accidecross_wt_chart, use_container_width=True)
         
  ###################################################################
-  elif choice == 'Accident severity analysis':
-        st.title('Accident severity analysis.')
+  elif choice == 'Accident severity':
+        st.title('Accident severity analysis')
 
         #### text about this:
-        st.markdown('Let''s look at some interesting data on Accident severity analysis')
+        # st.markdown('Let''s look at some interesting data on Accident severity analysis')
 
         ##### calculated the accidents per each severity
         severity=pd.DataFrame(accidents.severity.value_counts()).reset_index(drop=False)
@@ -108,7 +110,7 @@ def write():
         severity
                 
         #### ploting a bar chart with alt
-        st.subheader('Number of accidents for each severity.')
+        st.subheader('Number of accidents for each severity')
         bars2 = alt.Chart(severity).mark_bar().encode(
             x='accidents',
             y="severity",opacity=alt.value(0.5),
@@ -142,17 +144,17 @@ def write():
         )
         #st.altair_chart(severity_m, use_container_width=True)
         ### making the options and plots
-        st.header('**Relation into accident severity and time.**')
-        severity_r = st.radio("Select one By",('Month', 'Year'))
-        if severity_r == 'Month':
-              st.subheader('Relation into accident severity and month.')
+        st.header('**Temporal analysis of accident severity**')
+        severity_r = st.radio("Select one",('By month', 'By year'), key = 2)
+        if severity_r == 'By month':
+              st.subheader('Accident Severity vs. Month')
               st.altair_chart(severity_m, use_container_width=True)
         else:
-              st.subheader('Relation into accident severity and year.')
+              st.subheader('Accident Severity vs. Year')
               st.altair_chart(severity_y, use_container_width=True)
         
         ### calculated relation accident type and severity
-        st.header('**Relation into accident type and severity.**')
+        st.header('**Accident Type vs. Accident Severity**')
         cross = accidents[['accident_type', 'severity','population']].groupby(['accident_type', 'severity']).count().reset_index()
         cross.columns=['accident_type', 'severity','accidents']
         ### ploting heatmap
@@ -167,11 +169,11 @@ def write():
 
       
 ###################################################################
-  elif choice == 'Accident type analysis':
-        st.title('Accident type analysis.')
+  elif choice == 'Accident type':
+        st.title('Accident type analysis')
 
         #### text about this:
-        st.markdown('Let''s look at some interesting data on Accident type analysis.')
+        # st.markdown('Let''s look at some interesting data on Accident type analysis.')
 
         ##### calculated the accidents per each severity
         accident_type=pd.DataFrame(accidents.accident_type.value_counts()).reset_index(drop=False)
@@ -179,7 +181,7 @@ def write():
         
                 
         #### ploting a bar chart with alt
-        st.subheader('Number of accidents for each accident type.')
+        st.subheader('Number of accidents for each accident type')
         bars3 = alt.Chart(accident_type).mark_bar().encode(
             x='accidents',
             y="accident_type",opacity=alt.value(0.5),
@@ -213,17 +215,17 @@ def write():
         )
         #st.altair_chart(accident_type_m, use_container_width=True)
         ### making the options and plots
-        st.header('**Relation into accident accident_type and time.**')
-        accident_type_r = st.radio("Select one By",('Month', 'Year'))
-        if accident_type_r == 'Month':
-              st.subheader('Relation into accident accident_type and month.')
+        st.header('**Temporal analysis of accident type**')
+        accident_type_r = st.radio("Select one",('By month', 'By year'))
+        if accident_type_r == 'By month':
+              st.subheader('Accident Type vs. Month')
               st.altair_chart(accident_type_m, use_container_width=True)
         else:
-              st.subheader('Relation into accident accident_type and year.')
+              st.subheader('Accident Type vs. Year')
               st.altair_chart(accident_type_y, use_container_width=True)
         
         ### calculated relation accident type and severity
-        st.header('**Relation into accident type and severity.**')
+        st.header('**Accident Type vs. Accident Severity**')
         cross = accidents[['accident_type', 'severity','population']].groupby(['accident_type', 'severity']).count().reset_index()
         cross.columns=['accident_type', 'severity','accidents']
         ### ploting heatmap
