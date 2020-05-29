@@ -10,7 +10,7 @@ In  Bogota's case, 32,000 traffic accidents on average occur each year, and as a
 one person suffers non-fatal injuries every hour and there is one fatality every 16 hours.
 
 In this project, we built a machine learning model that predicts the probability of traffic accidents 
-in different locations in Bogota. We hope that this project can contribute to the improvement of road safety.
+in different locations in Bogota, using 2015 - 2019 historical accident data. We hope that this project can contribute to the improvement of road safety.
   """)
 
   image = Image.open('images/traffic_accident.png')

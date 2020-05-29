@@ -22,7 +22,7 @@ PAGES = {
 }
 
 def main():
-    st.sidebar.title("Traffic accidents forecasting Project")
+    st.sidebar.title("Traffic Accidents Forecasting Project")
     st.sidebar.subheader("Navigation")
     selection = st.sidebar.radio("Go to", list(PAGES.keys()))
     page = PAGES[selection]
