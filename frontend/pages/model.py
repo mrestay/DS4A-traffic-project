@@ -45,7 +45,7 @@ def write():
     # st.dataframe(weather)
 
     if now > datetime_input_dt - timedelta(hours=48) and datetime_input_dt > now + timedelta(hours=5):
-        if weather_filtered.empty():
+        if not weather_filtered.empty:
             st.write(
                 f"""The probability of an accident happening at the location you selected is:
                     {round(model_apply(weather_filtered, 'finalized_model.sav')[0] * 100, 2)}%""")
