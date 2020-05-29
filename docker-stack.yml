@@ -1,0 +1,14 @@
+version: "3.4"
+
+
+services:
+  app:
+    image: sytabaresa/ds4a-project:latest
+    command: streamlit run --browser.serverAddress ds4a.wol.me main.py
+    ports:
+      - 8501:8501
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+        delay: 5s
