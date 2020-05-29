@@ -7,7 +7,7 @@ from widgets import bubble, tiles
 from conf import mapbox_key
 
 def write():
-
+    st.markdown('Use the panel on the left to select your preferred year segmentation')
     #--- sidebar ---
     year = st.sidebar.slider('Year', 2015, 2019, (2015,2019))
     segmentation = st.sidebar.radio('Segmentation', ('Total', 'By Year'))

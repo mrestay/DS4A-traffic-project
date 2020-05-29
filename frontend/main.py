@@ -16,8 +16,8 @@ PAGES = {
     "General Analysis": more,
     # "General": general,
     "Clusters": cluster,
-    "Spatial analysis": climate,
-    "Accidents": accidents,
+    "Spatial Analysis": climate,
+    "Temporal Analysis": accidents,
     'Model': model,
 }
 
