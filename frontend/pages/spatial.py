@@ -4,7 +4,7 @@ import pandas as pd
 from conf import mapbox_key
 
 # from data import borough_data,aa
-# from data import accidents
+from data import accidents
   
 def write():
   st.title('Spatial Analysis')
@@ -42,5 +42,6 @@ def write():
     layers=[layer],
     
   ))
+
 
   

@@ -2,12 +2,54 @@ import streamlit as st
 from data import accidents
 import seaborn as sns
 from matplotlib import pyplot as plt
+import pydeck as pdk
+from conf import mapbox_key
 
 
 def write():
-    st.title('Select a category')
+    st.title('General overview of the accidents in Bogotá')
+
+    accidents_by_year = accidents.sample(frac=0.2)
+    # st.table(data)
+
+    COLOR_BREWER_BLUE_SCALE = [
+        [240, 249, 232],
+        [204, 235, 197],
+        [168, 221, 181],
+        [123, 204, 196],
+        [67, 162, 202],
+        [8, 104, 172],
+    ]
+
+    # print(accidents_by_year.info())
+
+    layer = pdk.Layer(
+            "HeatmapLayer",
+            accidents_by_year[['x','y','severity_numeric']],
+            opacity=0.9,
+            get_position=["x", "y"],
+            aggregation='"MEAN"',
+            color_range=COLOR_BREWER_BLUE_SCALE,
+            threshold=1,
+            get_weight="severity_numeric",
+            pickable=True
+        )
+
+    st.pydeck_chart(pdk.Deck(
+      map_style='mapbox://styles/mapbox/dark-v9',
+      mapbox_key=mapbox_key,
+      initial_view_state=pdk.ViewState(
+          latitude=4.654335,
+          longitude=-74.083644,
+          zoom=11,
+        #   pitch=50,
+      ),
+      layers=[layer],
+    ))
+
     st.text('Please note that plots were calculated using 2015 - 2019 accident data.')
     # st.markdown('<style>h1{color: red;}</style>', unsafe_allow_html=True)
+    st.write("select a category to view.")
 
     ############################################# by year
     by_year = accidents['year'].value_counts(sort=True).rename_axis('year').reset_index(name='accident_count').sort_values(by='year').reset_index(drop=True)

@@ -29,7 +29,7 @@ def write():
         get_line_color=[0, 0, 0],
     )
     # Set the viewport location
-    view_state = pdk.ViewState(latitude=4.6585, longitude=-74.0935, zoom=13, bearing=0,
+    view_state = pdk.ViewState(latitude=4.6585, longitude=-74.0935, zoom=12, bearing=0,
                                pitch=0)
 
     # Render

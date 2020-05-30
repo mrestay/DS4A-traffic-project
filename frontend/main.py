@@ -2,27 +2,25 @@ import streamlit as st
 import pages.about as about
 import pages.general as general
 import pages.cluster as cluster
-import pages.climate as climate
-import pages.accidents as accidents
+import pages.spatial as spatial
+import pages.temporal as temporal
 import pages.model as model
 import pages.summary as summary
-import pages.more as more
 
 from importlib import reload  
 
 PAGES = {
     "About": about,
-    "Summary": summary,
-    "General Analysis": more,
-    # "General": general,
+    "Summary ": summary,
+    "General Analysis": general,
     "Clusters": cluster,
-    "Spatial Analysis": climate,
-    "Temporal Analysis": accidents,
+    "Spatial Analysis": spatial,
+    "Temporal Analysis": temporal,
     'Model': model,
 }
 
 def main():
-    st.sidebar.title("Traffic Accidents Forecasting Project")
+    st.sidebar.title("Traffic Accident Forecasting in Bogotá")
     st.sidebar.subheader("Navigation")
     selection = st.sidebar.radio("Go to", list(PAGES.keys()))
     page = PAGES[selection]
