@@ -26,7 +26,7 @@ def write():
           extruded=True,
           wireframe=True,
           get_elevation=f"properties.{type_g}",
-          get_fill_color="[48, 128, properties.accident_density * 255, 255]",
+          get_fill_color="[48, 128, properties.accident_density / 255, 255]",
           get_line_color=[255, 255, 255],
         )
 
