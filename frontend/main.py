@@ -14,7 +14,7 @@ PAGES = {
     "Summary ": summary,
     "General Analysis": general,
     "Clusters": cluster,
-    "Spatial Analysis": spatial,
+    # "Spatial Analysis": spatial,
     "Temporal Analysis": temporal,
     'Model': model,
 }
